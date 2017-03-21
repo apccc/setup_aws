@@ -15,4 +15,8 @@ if [ ! -f ~/ec2-metadata ];then
 else
   echo "EC2 Metadata File in Place!"
 fi
+
+#install some packages
+sudo apt-get update
+sudo apt-get install -y expect
 exit 0
