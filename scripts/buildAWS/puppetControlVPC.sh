@@ -39,4 +39,7 @@ fi
 sudo apt-get install -y puppetserver
 
 #install puppet on the remote systems
+for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
+  echo "Installing Puppet on $INSTANCEID as $CLIENT_ADMIN_USER"
+done
 exit 0
