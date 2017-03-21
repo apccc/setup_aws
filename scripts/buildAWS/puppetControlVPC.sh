@@ -49,20 +49,22 @@ if [ ! -f /opt/puppetlabs/bin/puppet ];then
   ~/setup_aws/scripts/tools/expect/puppetMasterCASetup.exp
 fi
 
-#start the local puppet server
-echo "Starting the puppet server! This may take a minute..."
-sudo service puppetserver restart
+if [[ `ps aux | grep puppetserver | grep java | wc -l` -lt 1 ]];then
+  #start the local puppet server
+  echo "Starting the puppet server! This may take a minute..."
+  sudo service puppetserver restart
 
-#setup puppet to start on startup
-echo "Setting puppet to run at startup!"
-sudo /opt/puppetlabs/bin/puppet resource service puppetserver ensure=running enable=true
+  #setup puppet to start on startup
+  echo "Setting puppet to run at startup!"
+  sudo /opt/puppetlabs/bin/puppet resource service puppetserver ensure=running enable=true
+fi
 
 #install puppet on the remote systems
 KEYFILE="~/setup_aws_keystore/${VPCID}.pem"
 for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
   INSTANCEURL=`~/setup_aws/scripts/tools/getInstanceURLFromId.sh $INSTANCEID`
   echo "Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
-  TASK="sudo apt-get update;sudo apt-get install -y puppet;"
+  TASK="if [[ `which puppet | wc -l` lt -1 ]];then sudo apt-get update;sudo apt-get install -y puppet; fi"
   ~/setup_aws/scripts/tools/expect/performRemoteTask.exp "$CLIENT_ADMIN_USER" "$INSTANCEURL" "$KEYFILE" "$TASK"
   echo "Done Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
 done
