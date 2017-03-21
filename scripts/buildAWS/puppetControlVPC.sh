@@ -39,6 +39,12 @@ if [ ! -f /opt/puppetlabs/bin/puppet ];then
   #install the puppet server
   sudo apt-get install -y puppetserver
 
+  #set the memory footprint
+  CONFF=/etc/default/puppetserver
+  F=`grep '^JAVA_ARGS=' /etc/default/puppetserver`
+  R='JAVA_ARGS="-Xms500m -Xmx500m -XX:MaxPermSize=256m"'
+  $FR "$F" "$R" "$CONFF"
+
   #setup this controller as the Puppet Master CA
   ~/setup_aws/scripts/tools/expect/puppetMasterCASetup.exp
 fi
