@@ -43,5 +43,11 @@ KEYFILE="~/setup_aws_keystore/${VPCID}.pem"
 for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
   INSTANCEURL=`~/setup_aws/scripts/tools/getInstanceURLFromId.sh $INSTANCEID`
   echo "Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
+  TASK="sudo apt-get update;sudo apt-get install -y puppet;"
+  ~/setup_aws/scripts/tools/expect/performRemoteTask.exp "$CLIENT_ADMIN_USER" "$INSTANCEURL" "$KEYFILE" "$TASK"
+  echo "Done Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
 done
+
+#done
+echo "Finished setting up puppet throughout the VPC"
 exit 0
