@@ -18,6 +18,7 @@ set timeout 60
 
 expect {    
   "Starting Puppet master version" {
+    sleep 1
     send \003
     exp_continue
   }
