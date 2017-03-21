@@ -16,19 +16,18 @@ send -- "\r"
 
 set timeout 60
 
-expect {    
-  "Starting Puppet master version" {
-    sleep 1
+expect {
+  "Starting Puppet master version " {
     send \003
     exp_continue
   }
-	"$prompt" {
+  "$prompt" {
      send -- "exit\r"
-	}
-	timeout {
-     send -- "\r"
-     exp_continue
-	}
+  }
+  timeout {
+    send -- "\r"
+    exp_continue
+  }
 }
 
 expect eof
