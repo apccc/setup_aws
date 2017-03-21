@@ -18,5 +18,5 @@ fi
 
 #install some packages
 sudo apt-get update
-sudo apt-get install -y expect ntp
+sudo apt-get install -y expect ntp pcregrep
 exit 0
