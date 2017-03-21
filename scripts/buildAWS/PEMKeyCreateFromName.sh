@@ -11,6 +11,7 @@ fi
 F=${KEYSTOREDIR}/${KEYNAME}.pem
 if [ -f $F ];then
   echo "Key already exists $F"
+  exit 0
 fi
 aws ec2 create-key-pair --key-name "$KEYNAME" --query 'KeyMaterial' --output text > $F
 chmod 400 $F
