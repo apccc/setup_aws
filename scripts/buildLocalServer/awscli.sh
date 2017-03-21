@@ -7,4 +7,5 @@ sudo apt-get update
 sudo apt-get install -y python python-pip
 
 #install awscli
+pip install awscli
 exit 0
