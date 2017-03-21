@@ -17,5 +17,5 @@ GATEWAYID="$1"
 ROUTETABLEID=`aws ec2 create-route-table --vpc-id "$VPCID" --query 'RouteTable.RouteTableId' --output text`
 aws ec2 associate-route-table --route-table-id "$ROUTETABLEID" --subnet-id "$SUBNETID"
 aws ec2 create-route --route-table-id "$ROUTETABLEID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$GATEWAYID"
-
+echo "$ROUTETABLEID"
 exit 0
