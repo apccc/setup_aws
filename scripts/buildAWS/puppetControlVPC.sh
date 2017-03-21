@@ -49,13 +49,6 @@ if [ ! -f /opt/puppetlabs/bin/puppet ];then
   ~/setup_aws/scripts/tools/expect/puppetMasterCASetup.exp
 fi
 
-  #set the memory footprint
-  CONFF=/etc/default/puppetserver
-  F=`grep '^JAVA_ARGS=' /etc/default/puppetserver`
-  R='JAVA_ARGS="-Xms500m -Xmx500m -XX:MaxPermSize=256m"'
-  sudo $FR "$F" "$R" "$CONFF"
-
-
 #install puppet on the remote systems
 KEYFILE="~/setup_aws_keystore/${VPCID}.pem"
 for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
