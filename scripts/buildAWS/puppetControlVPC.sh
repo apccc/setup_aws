@@ -38,6 +38,15 @@ fi
 #install the puppet server
 sudo apt-get install -y puppetserver
 
+#make sure the PATH variable is updated
+if [[ `echo $PATH | grep 'puppetlabs' | wc -l` -lt 1 ]];then
+  D=/opt/puppetlabs/bin
+  if [ -d $D ];then
+    echo "Updating PATH variable."
+    PATH=${D}:$PATH;export PATH
+  fi
+fi
+
 #install puppet on the remote systems
 KEYFILE="~/setup_aws_keystore/${VPCID}.pem"
 for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
