@@ -5,6 +5,6 @@ if [ -z "$1" ];then
 fi
 VPCID="$1"
 INTERNETGATEWAYID=`aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text`
-echo "Attaching Internet Gateway $INTERNETGATEWAYID to VPC with ID $VPCID"
 aws ec2 attach-internet-gateway --internet-gateway-id "$INTERNETGATEWAYID" --vpc-id "$VPCID"
+echo "$INTERNETGATEWAYID"
 exit 0
