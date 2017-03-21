@@ -66,6 +66,8 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
   echo "Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
   TASK="if [[ `which puppet | wc -l` lt -1 ]];then sudo apt-get update;sudo apt-get install -y puppet; fi"
   ~/setup_aws/scripts/tools/expect/performRemoteTask.exp "$CLIENT_ADMIN_USER" "$INSTANCEURL" "$KEYFILE" "$TASK"
+  TASK="if [[ `cat /etc/hosts | grep puppet | wc -l` -lt 1 ]];then echo '${MYIP} puppet' | sudo tee -a /etc/hosts; fi"
+  ~/setup_aws/scripts/tools/expect/performRemoteTask.exp "$CLIENT_ADMIN_USER" "$INSTANCEURL" "$KEYFILE" "$TASK"
   echo "Done Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
 done
 
