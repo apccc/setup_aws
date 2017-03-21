@@ -1,0 +1,84 @@
+#!/usr/bin/expect -f
+
+set user [lindex $argv 0]
+set dest [lindex $argv 1]
+set key [lindex $argv 2]
+set task [lindex $argv 3]
+
+set rand [expr floor( rand() * 9999999) + 100]
+
+set prompt "#$rand#x#x#x#x#sshprt# "
+set prompt1 "#$user#$dest#$rand##xxxx### "
+
+set connectionfail 0
+
+set timeout -1
+spawn $env(SHELL) -s rx27Gnac
+match_max 100000
+send -- "export PS1='$prompt'\r"
+expect "$prompt"
+send -- "ssh -o 'LogLevel INFO' -i $key $user@$dest"
+send -- "\r"
+expect {
+	"No route to host" {
+		set connectionfail 1
+	}
+	"Connection timed out" {
+		set connectionfail 1
+	}
+	-re "Offending (\[A-Z]+ )?key in " {
+       expect {
+     	    -re "\[0-9]+" {
+               set oLine $expect_out(0,string)
+             	 sleep 1
+               send -- "sed '${oLine}d' ~/.ssh/known_hosts > ~/.ssh/known_hosts.tmp\r"
+               send -- "mv ~/.ssh/known_hosts.tmp ~/.ssh/known_hosts\r"
+		           sleep 1
+        		   send -- "ssh -o 'LogLevel INFO' -i $key $user@$dest"
+				       send -- "\r"
+			     }
+          }
+          exp_continue
+        }
+        "Are you sure you want to continue connecting (yes/no)?" {
+                send -- "yes\r"
+                exp_continue
+        }
+        "assword:" {
+            send -- "$pass\r"
+        }
+}
+
+expect {
+        "# " {
+        }
+        "$ " {
+        }
+}
+sleep .1
+
+if { $connectionfail == 0 } {
+	send -- "export PS1='$prompt1'\r"
+	expect "$prompt1"
+	sleep .1
+	send -- "$task"
+	send -- "\r"
+}
+
+set timeout 20
+
+expect {    
+        "$prompt1" {
+                send -- "exit\r"
+                exp_continue
+        }
+	"$prompt" {
+                send -- "exit\r"
+	}
+	timeout {
+                send -- "\r"
+                exp_continue
+	}
+}
+
+expect eof
