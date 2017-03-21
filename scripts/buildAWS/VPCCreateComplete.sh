@@ -18,7 +18,7 @@ echo "VPC $VPCID created!"
 ~/setup_aws/scripts/buildAWS/VPCEnableDNS.sh "$VPCID"
 
 #create a gateway
-INTERNETGATEWAYID=`~/setup_aws/scripts/buildAWS/VPCCreateGateway.sh`
+INTERNETGATEWAYID=`~/setup_aws/scripts/buildAWS/VPCCreateGateway.sh "$VPCID"`
 echo "Internet Gatway $INTERNETGATEWAYID created!"
 
 #create the/a subnet
