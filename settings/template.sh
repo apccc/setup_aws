@@ -19,3 +19,6 @@ PHPMYADMIN_FOLDER=''
 DEFAULT_AMI='ami-9899c7f8'
 CLIENT_ADMIN_USER='admin'
 PUPPETAPTDEB='https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb'
+
+#tools
+FR=~/setup_aws/scripts/tools/findreplace.sh
