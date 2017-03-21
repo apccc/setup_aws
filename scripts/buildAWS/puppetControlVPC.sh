@@ -4,7 +4,7 @@ if [ -z "$1" ];then
 else
   VPCID="$1"
 fi
-if [ -z "$1" ];then
+if [ -z "$VPCID" ];then
   echo "VPC ID Not Set!"
   exit 1
 fi
