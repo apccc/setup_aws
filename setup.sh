@@ -18,5 +18,5 @@ fi
 
 #install some packages
 sudo apt-get update
-sudo apt-get install -y expect
+sudo apt-get install -y expect ntp
 exit 0
