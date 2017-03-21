@@ -1,3 +1,7 @@
 #!/usr/bin/expect -f
 
+set rand [expr floor( rand() * 9999999) + 100]
+
+set prompt "#$rand#x#x#x#x#pmcas# "
+
 sudo /opt/puppetlabs/bin/puppet master --verbose --no-daemonize
