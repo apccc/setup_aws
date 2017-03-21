@@ -4,14 +4,14 @@ if [ -z "$1" ];then
   exit 1
 fi
 KEYNAME="$1"
-KEYSTOREDIR="~/setup_aws_keystore"
-if [ ! -d "$D" ];then
-  mkdir "$D"
+KEYSTOREDIR=~/setup_aws_keystore
+if [ ! -d $D ];then
+  mkdir $D
 fi
-F="${D}/${KEYNAME}.pem"
-if [ -f "$F" ];then
+F=${D}/${KEYNAME}.pem
+if [ -f $F ];then
   echo "Key already exists $F"
 fi
-aws ec2 create-key-pair --key-name "$KEYNAME" --query 'KeyMaterial' --output text > "$F"
-chmod 400 "$F"
+aws ec2 create-key-pair --key-name "$KEYNAME" --query 'KeyMaterial' --output text > $F
+chmod 400 $F
 exit 0
