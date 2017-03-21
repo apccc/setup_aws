@@ -63,6 +63,10 @@ done
 echo "Starting the puppet server! This may take a minute..."
 sudo service puppetserver restart
 
+#setup puppet to start on startup
+echo "Setting puppet to run at startup!"
+sudo /opt/puppetlabs/bin/puppet resource service puppetserver ensure=running enable=true
+
 #done
 echo "Finished setting up puppet throughout the VPC"
 exit 0
