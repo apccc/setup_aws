@@ -14,6 +14,6 @@ if [ -z "$VPCID" ];then
 fi
 #get the instance id from the VPC and Private Hostname
 
-aws ec2 describe-instances --filters Name=vpc-id,Values="$VPCID" Name=private-dns-name,Values="$ZHOSTNAME"
+aws ec2 describe-instances --filters Name=vpc-id,Values="$VPCID" Name=private-dns-name,Values="$ZHOSTNAME" --query 'Reservations[*].Instances[*].{Name:InstanceId}' --output text
 
 exit 0
