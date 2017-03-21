@@ -18,6 +18,6 @@ echo "Opening up port 8140 for $MYIP in security group $SECURITYGROUPID."
 aws ec2 authorize-security-group-ingress --group-id "$SECURITYGROUPID" --protocol tcp --port 8140 --cidr "${MYIP}/32"
 
 #install the puppet server
-apt-get install -y puppetserver
+sudo apt-get install -y puppetserver
 
 exit 0
