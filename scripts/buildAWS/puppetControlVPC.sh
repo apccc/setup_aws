@@ -13,6 +13,6 @@ fi
 
 SECURITYGROUPID=`~/setup_aws/scripts/tools/getSecurityGroupIdFromName.sh "setupaws-sec-${VPCID}-grp"`
 MYIP=`~/setup_aws/scripts/tools/whatsmyip.sh`
-echo "Opening up port 8140 for this controller system."
+echo "Opening up port 8140 for $MYIP in security group $SECURITYGROUPID."
 aws ec2 authorize-security-group-ingress --group-id "$SECURITYGROUPID" --protocol tcp --port 8140 --cidr "${MYIP}/32"
 exit 0
