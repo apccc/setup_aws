@@ -17,5 +17,5 @@ PHPMYADMIN_FOLDER=''
 
 #low level vars
 DEFAULT_AMI='ami-9899c7f8'
-CLIENTADMINUSER='admin'
+CLIENT_ADMIN_USER='admin'
 PUPPETAPTDEB='https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb'
