@@ -30,7 +30,7 @@ echo "Setting up Routing Table for Routing external traffic in the VPC Subnet to
 ~/setup_aws/scripts/buildAWS/VPCRouteExternalTrafficToGateway.sh "$VPCID" "$SUBNETID" "$INTERNETGATEWAYID"
 
 #create the security group
-SECURITYGROUPID=`~/setup_aws/scripts/buildAWS/VPCCreateSecurityGroup.sh`
+SECURITYGROUPID=`~/setup_aws/scripts/buildAWS/VPCCreateSecurityGroup.sh "$VPCID"`
 echo "Security Group $SECURITYGROUPID created!"
 
 #create the controller key to the VPC
