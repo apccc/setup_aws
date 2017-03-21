@@ -49,6 +49,14 @@ if [ ! -f /opt/puppetlabs/bin/puppet ];then
   ~/setup_aws/scripts/tools/expect/puppetMasterCASetup.exp
 fi
 
+#start the local puppet server
+echo "Starting the puppet server! This may take a minute..."
+sudo service puppetserver restart
+
+#setup puppet to start on startup
+echo "Setting puppet to run at startup!"
+sudo /opt/puppetlabs/bin/puppet resource service puppetserver ensure=running enable=true
+
 #install puppet on the remote systems
 KEYFILE="~/setup_aws_keystore/${VPCID}.pem"
 for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
@@ -58,14 +66,6 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
   ~/setup_aws/scripts/tools/expect/performRemoteTask.exp "$CLIENT_ADMIN_USER" "$INSTANCEURL" "$KEYFILE" "$TASK"
   echo "Done Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
 done
-
-#start the local puppet server
-echo "Starting the puppet server! This may take a minute..."
-sudo service puppetserver restart
-
-#setup puppet to start on startup
-echo "Setting puppet to run at startup!"
-sudo /opt/puppetlabs/bin/puppet resource service puppetserver ensure=running enable=true
 
 #done
 echo "Finished setting up puppet throughout the VPC"
