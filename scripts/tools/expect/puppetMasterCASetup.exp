@@ -4,4 +4,10 @@ set rand [expr floor( rand() * 9999999) + 100]
 
 set prompt "#$rand#x#x#x#x#pmcas# "
 
+set timeout -1
+spawn $env(SHELL) -s rx27Gnac
+match_max 100000
+send -- "export PS1='$prompt'\r"
+expect "$prompt"
+
 sudo /opt/puppetlabs/bin/puppet master --verbose --no-daemonize
