@@ -12,8 +12,8 @@ if [ -z "$3" ];then
   exit 0
 fi
 VPCID="$1"
-SUBNETID="$1"
-GATEWAYID="$1"
+SUBNETID="$2"
+GATEWAYID="$3"
 ROUTETABLEID=`aws ec2 create-route-table --vpc-id "$VPCID" --query 'RouteTable.RouteTableId' --output text`
 aws ec2 associate-route-table --route-table-id "$ROUTETABLEID" --subnet-id "$SUBNETID"
 aws ec2 create-route --route-table-id "$ROUTETABLEID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$GATEWAYID"
