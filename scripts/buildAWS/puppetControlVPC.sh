@@ -32,7 +32,9 @@ fi
 echo "Found puppet deb file $FILE"
 sudo dpkg -i "$FILE"
 sudo apt-get update
-
+if [ -f "$FILE" ];then
+  rm "$FILE"
+fi
 #install the puppet server
 sudo apt-get install -y puppetserver
 exit 0
