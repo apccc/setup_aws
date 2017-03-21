@@ -60,7 +60,7 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
 done
 
 #start the local puppet server
-echo "Starting the puppet server! This may take awhile..."
+echo "Starting the puppet server! This may take a minute..."
 sudo service puppetserver restart
 
 #done
