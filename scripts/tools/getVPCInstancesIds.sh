@@ -10,5 +10,5 @@ if [ -z "$VPCID" ];then
 fi
 
 #get instances ids within the VPC
-
+aws ec2 describe-instances --filters Name=vpc-id,Values="$VPCID" --query 'Reservations[*].Instances[*].{Name:InstanceId}' --output text
 exit 0
