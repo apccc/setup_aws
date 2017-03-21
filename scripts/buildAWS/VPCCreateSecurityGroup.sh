@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -z "$1" ];then
   echo "VPC Id not set!"
-  exit 0
+  exit 1
 fi
 VPCID="$1"
 SECURITYGROUPID=`aws ec2 create-security-group --group-name "setupaws-sec-${VPCID}-grp" --description "setupaws-sec-${VPCID}-grp" --vpc-id "$VPCID" --query 'GroupId' --output text`
