@@ -59,6 +59,10 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getVPCInstancesIds.sh`;do
   echo "Done Installing Puppet on $INSTANCEID at $INSTANCEURL as $CLIENT_ADMIN_USER using $KEYFILE"
 done
 
+#start the local puppet server
+echo "Starting the puppet server! This may take awhile..."
+sudo service puppetserver restart
+
 #done
 echo "Finished setting up puppet throughout the VPC"
 exit 0
