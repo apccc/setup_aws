@@ -38,6 +38,9 @@ if [ ! -f /opt/puppetlabs/bin/puppet ];then
   fi
   #install the puppet server
   sudo apt-get install -y puppetserver
+
+  #setup this controller as the Puppet Master CA
+  ~/setup_aws/scripts/tools/expect/puppetMasterCASetup.exp
 fi
 
 #install puppet on the remote systems
