@@ -1,6 +1,8 @@
 #!/bin/bash
 #install the awscli
 
+#update apt
+sudo apt-get update
 #install Python
 sudo apt-get install -y python python-pip
 
