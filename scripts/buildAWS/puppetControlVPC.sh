@@ -20,23 +20,25 @@ MYIP=`~/setup_aws/scripts/tools/whatsmyip.sh`
 echo "Opening up port 8140 for $MYIP in security group $SECURITYGROUPID."
 aws ec2 authorize-security-group-ingress --group-id "$SECURITYGROUPID" --protocol tcp --port 8140 --cidr "${MYIP}/32"
 
-#get the puppet apt deb file
-cd /tmp
-echo "Retrieving $PUPPETAPTDEB"
-wget $PUPPETAPTDEB
-FILE=`ls -1 | grep 'puppet' | grep '.deb'`
-if [ -z "$FILE" ];then
-  echo "File could not be obtained!"
-  exit 1
+if [ ! -f /opt/puppetlabs/bin/puppet ];then
+  #get the puppet apt deb file
+  cd /tmp
+  echo "Retrieving $PUPPETAPTDEB"
+  wget $PUPPETAPTDEB
+  FILE=`ls -1 | grep 'puppet' | grep '.deb'`
+  if [ -z "$FILE" ];then
+    echo "File could not be obtained!"
+    exit 1
+  fi
+  echo "Found puppet deb file $FILE"
+  sudo dpkg -i "$FILE"
+  sudo apt-get update
+  if [ -f "$FILE" ];then
+    rm "$FILE"
+  fi
+  #install the puppet server
+  sudo apt-get install -y puppetserver
 fi
-echo "Found puppet deb file $FILE"
-sudo dpkg -i "$FILE"
-sudo apt-get update
-if [ -f "$FILE" ];then
-  rm "$FILE"
-fi
-#install the puppet server
-sudo apt-get install -y puppetserver
 
 #install puppet on the remote systems
 KEYFILE="~/setup_aws_keystore/${VPCID}.pem"
