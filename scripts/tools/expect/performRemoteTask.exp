@@ -27,7 +27,7 @@ expect {
 		set connectionfail 1
 	}
 	-re "Offending (\[A-Z]+ )?key in " {
-       expect {
+         expect {
      	    -re "\[0-9]+" {
                set oLine $expect_out(0,string)
              	 sleep 1
@@ -44,17 +44,12 @@ expect {
                 send -- "yes\r"
                 exp_continue
         }
-        "assword:" {
-            send -- "$pass\r"
-        }
-}
-
-expect {
         "# " {
         }
         "$ " {
         }
 }
+
 sleep .1
 
 if { $connectionfail == 0 } {
