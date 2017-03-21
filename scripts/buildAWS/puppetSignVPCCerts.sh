@@ -8,4 +8,6 @@ for ZHOSTNAME in `sudo /opt/puppetlabs/bin/puppet cert list | egrep -oe '"[a-z0-
     continue
   fi
   echo "Signing cert for instance $INSTANCEID with hostname $ZHOSTNAME"
+  sudo /opt/puppetlabs/bin/puppet cert sign "$ZHOSTNAME"
 done
+exit 0
