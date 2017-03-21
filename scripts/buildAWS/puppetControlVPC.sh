@@ -37,4 +37,6 @@ if [ -f "$FILE" ];then
 fi
 #install the puppet server
 sudo apt-get install -y puppetserver
+
+#install puppet on the remote systems
 exit 0
