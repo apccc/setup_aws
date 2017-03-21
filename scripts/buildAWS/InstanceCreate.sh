@@ -5,6 +5,6 @@ ITYPE='t2.micro'
 VPC=`~/setup_aws/scripts/tools/getControllerVPCId.sh`
 SECGRP="setupaws-sec-${VPC}-grp"
 SECGRPID=`~/setup_aws/scripts/tools/getSecurityGroupIdFromName.sh "$SECGRP"`
-SUBNETID=""
+SUBNETID=`~/setup_aws/scripts/tools/getCIDRBlockFromVPCId.sh "${VPC}"`
 INSTANCEID=`aws ec2 run-instances --image-id "$AMI" --count 1 --instance-type "$ITYPE" --key-name "$VPC" --security-group-ids "$SECGRPID" --subnet-id "$SUBNETID" --associate-public-ip-address --query 'Instances[0].InstanceId' --output text`
 exit 0
