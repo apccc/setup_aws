@@ -14,7 +14,7 @@ expect "$prompt"
 send -- "sudo /opt/puppetlabs/bin/puppet master --verbose --no-daemonize"
 send -- "\r"
 
-set timeout 60
+set timeout 10
 
 expect {
   "Starting Puppet master version " {
