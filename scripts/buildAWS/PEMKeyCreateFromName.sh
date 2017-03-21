@@ -5,10 +5,10 @@ if [ -z "$1" ];then
 fi
 KEYNAME="$1"
 KEYSTOREDIR=~/setup_aws_keystore
-if [ ! -d $D ];then
-  mkdir $D
+if [ ! -d $KEYSTOREDIR ];then
+  mkdir $KEYSTOREDIR
 fi
-F=${D}/${KEYNAME}.pem
+F=${KEYSTOREDIR}/${KEYNAME}.pem
 if [ -f $F ];then
   echo "Key already exists $F"
 fi
