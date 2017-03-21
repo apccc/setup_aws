@@ -10,4 +10,24 @@ match_max 100000
 send -- "export PS1='$prompt'\r"
 expect "$prompt"
 
-sudo /opt/puppetlabs/bin/puppet master --verbose --no-daemonize
+
+send -- "sudo /opt/puppetlabs/bin/puppet master --verbose --no-daemonize"
+send -- "\r"
+
+set timeout 60
+
+expect {    
+  "Starting Puppet master version" {
+    send \003
+    exp_continue
+  }
+	"$prompt" {
+     send -- "exit\r"
+	}
+	timeout {
+     send -- "\r"
+     exp_continue
+	}
+}
+
+expect eof
