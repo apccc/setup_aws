@@ -9,7 +9,8 @@ if [ ! -f "$F" ];then
   echo "$F is not a file!"
   exit 1
 fi
-git update-index --chmod=+x $F
+git update-index --chmod=+x "$F"
+chmod 755 "$F"
 git commit --amend -m "Making file executable."
 cd ~/setup_aws
 git push -f
