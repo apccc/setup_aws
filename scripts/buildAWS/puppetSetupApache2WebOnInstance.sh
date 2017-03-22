@@ -21,6 +21,9 @@ sudo /opt/puppetlabs/bin/puppet module install puppetlabs-apache
 
 #setup the puppet site file
 F="/etc/puppetlabs/code/environments/production/manifests/site.pp"
+if [ ! -f "$F" ];then
+  sudo touch "$F"
+fi
 
 #setup the apache entry for the file
 if [[ `grep "$PRIVATEHOSTNAME" "$F" | grep 'apache' | wc -l` -lt 1 ]];then
