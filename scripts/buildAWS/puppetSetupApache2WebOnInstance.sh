@@ -52,8 +52,11 @@ TASK="sudo puppet agent -t"
 ~/setup_aws/scripts/tools/expect/performRemoteTask.exp "$CLIENT_ADMIN_USER" "$INSTANCEURL" "$KEY" "$TASK"
 
 #add firewall rules to open up Web traffic
+SECURITYGROUPID=`~/setup_aws/scripts/tools/getSecurityGroupIdFromName.sh "setupaws-sec-${VPCID}-grp"`
 aws ec2 authorize-security-group-ingress --group-id "$SECURITYGROUPID" --protocol tcp --port 80 --cidr "0.0.0.0/0"
 aws ec2 authorize-security-group-ingress --group-id "$SECURITYGROUPID" --protocol tcp --port 80 --cidr "::/0"
+aws ec2 authorize-security-group-ingress --group-id "$SECURITYGROUPID" --protocol tcp --port 443 --cidr "0.0.0.0/0"
+aws ec2 authorize-security-group-ingress --group-id "$SECURITYGROUPID" --protocol tcp --port 443 --cidr "::/0"
 
 echo "Done setting up Apache 2 Web Server on $INSTANCEID"
 exit 0
