@@ -20,6 +20,9 @@ if [ -z "$PRIVATEHOSTNAME" ];then
   exit 0
 fi
 
+VPCID=`~/setup_aws/scripts/tools/getControllerVPCId.sh`
+KEY=~/setup_aws_keystore/${VPCID}.pem
+
 #setup the puppet apache module
 sudo /opt/puppetlabs/bin/puppet module install puppetlabs-apache
 
@@ -43,5 +46,11 @@ X="node default {}"
 if [[ `grep "$X" "$F" | wc -l` -lt 1 ]];then
   echo "$X" | sudo tee -a "$F"
 fi
+
+#perform the remote task
+TASK="sudo puppet agent -t"
+~/setup_aws/scripts/tools/expect/performRemoteTask.exp "$CLIENT_ADMIN_USER" "$INSTANCEURL" "$KEY" "$TASK"
+
+echo "Done setting up Apache 2 Web Server on $INSTANCEID"
 
 exit 0
