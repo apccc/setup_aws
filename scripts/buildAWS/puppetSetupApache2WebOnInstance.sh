@@ -6,15 +6,19 @@ fi
 INSTANCEID="$1"
 echo "Setting up Apache2 Web Server on Instance $INSTANCEID"
 INSTANCEURL=`~/setup_aws/scripts/tools/getInstanceURLFromId.sh $INSTANCEID`
-if [ -z "$INSTANCEURL ];then
+if [ -z "$INSTANCEURL" ];then
   echo "Instance URL Could Not Be Obtained!"
-  exit 0
+  exit 1
 fi
 
 source ~/setup_aws.conf.sh
 
 #get the instance private hostname
 PRIVATEHOSTNAME=`~/setup_aws/scripts/tools/getInstancePrivateHostnameFromId.sh "$INSTANCEID"`
+if [ -z "$PRIVATEHOSTNAME" ];then
+  echo "Private Hostname Could Not Be Obtained!"
+  exit 0
+fi
 
 #setup the puppet apache module
 sudo /opt/puppetlabs/bin/puppet module install puppetlabs-apache
