@@ -8,5 +8,12 @@ if [ -z "$INSTANCEID" ];then
   exit 1
 fi
 
+echo "Waiting 30 seconds for the Instance to finish booting up!"
+sleep 30
+
+echo "Ensuring Puppet Control Throughout the VPC"
+~/setup_aws/scripts/buildAWS/puppetControlVPC.sh
+
+
 
 exit 0
