@@ -14,13 +14,13 @@ echo "* Installing libapache2-mod-php5:"
 sudo apt-get install -y libapache2-mod-php5
 
 #clear out existing sites-enabled files
-#if [ -d /etc/apache2/sites-enabled ];then
-#  echo " * Clearing existing files in sites-enabled:"
-#  sudo rm /etc/apache2/sites-enabled/*
-#fi
+if [ -d /etc/apache2/sites-enabled ];then
+  echo " * Clearing existing files in sites-enabled:"
+  sudo rm /etc/apache2/sites-enabled/*
+fi
 
 ~/setup_aws/scripts/buildLocalServer/apache2Web/setupExtrasetup.conf.sh
-#~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite.sh
+~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite.sh
 #~/setup/scripts/buildLocalServer/apache2Web/setupServerSites.sh
 
 echo "* Enabling mod_ssl"
