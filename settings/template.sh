@@ -22,3 +22,4 @@ PUPPETAPTDEB='https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb'
 
 #tools
 FR=~/setup_aws/scripts/tools/findreplace.sh
+MY=~/setup_aws/scripts/tools/mysql/commandServer1Link.sh
