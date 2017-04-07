@@ -25,6 +25,24 @@ SITEDATABASE=$($MY 'SELECT `database` FROM `'"$SYSTEM_DATABASE"'`.`sites` WHERE 
 if [ -z "$ALLOWOVERRIDE" ];then
   ALLOWOVERRIDE="None"
 fi
+if [ "$DEPENDENCYREPOSITORIES" == "NULL" ];then
+  DEPENDENCYREPOSITORIES=""
+fi
+if [ "$DEPENDENCYPACKAGES" == "NULL" ];then
+  DEPENDENCYPACKAGES=""
+fi
+if [ "$REWRITES" == "NULL" ];then
+  REWRITES=""
+fi
+if [ "$ALIASES" == "NULL" ];then
+  ALIASES=""
+fi
+if [ "$CRONJOBS" == "NULL" ];then
+  CRONJOBS=""
+fi
+if [ "$VIRTUALHOSTEXTRAS" == "NULL" ];then
+  VIRTUALHOSTEXTRAS=""
+fi
 
 #setup the site directory
 D="/var/www/$SUBDOMAIN"
