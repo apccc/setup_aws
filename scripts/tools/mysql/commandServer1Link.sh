@@ -7,4 +7,4 @@ if [[ ! $1 ]];then
   exit 0
 fi
 
-echo "$1" | mysql -u root -p$MYSQL_ROOT_PW --host "$MYSQL_1_HOST"
+echo "$1" | mysql -u root -p$MYSQL_ROOT_PW --host "$MYSQL_1_HOST" 2>/dev/null
