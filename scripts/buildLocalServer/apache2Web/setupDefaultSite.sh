@@ -27,11 +27,11 @@ fi
 echo " * Installing Web files to ${D}:"
 ~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite/installWebFiles.sh
 
-echo " * Set up Database:"
+echo " * Setup Database:"
 ~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite/setupDatabase.sh
 
-
-#~/setup/scripts/buildLocalServer/apache2Web/setupSite.sh "${COMPANY_ADMIN_SUBDOMAIN}.${COMPANY_DOMAIN}"
+echo " * Setup Site ${COMPANY_ADMIN_SUBDOMAIN}.${COMPANY_DOMAIN}"
+~/setup_aws/scripts/buildLocalServer/apache2Web/setupSite.sh "${COMPANY_ADMIN_SUBDOMAIN}.${COMPANY_DOMAIN}"
 
 echo " * Done building the default site ${COMPANY_ADMIN_SUBDOMAIN}.${COMPANY_DOMAIN}"
 
