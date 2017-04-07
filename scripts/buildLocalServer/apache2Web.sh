@@ -19,7 +19,7 @@ sudo apt-get install -y libapache2-mod-php5
 #  sudo rm /etc/apache2/sites-enabled/*
 #fi
 
-#~/setup_aws/scripts/buildLocalServer/apache2Web/setupExtrasetup.conf.sh
+~/setup_aws/scripts/buildLocalServer/apache2Web/setupExtrasetup.conf.sh
 #~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite.sh
 #~/setup/scripts/buildLocalServer/apache2Web/setupServerSites.sh
 
