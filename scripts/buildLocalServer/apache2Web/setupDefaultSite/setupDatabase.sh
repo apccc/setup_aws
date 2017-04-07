@@ -194,9 +194,9 @@ if [[ `$MY "USE ${SYSTEM_DATABASE};SHOW TABLES LIKE 'sites';" | tail -n +2 | wc 
 
   CRTMP='/tmp/crtmp.txt'
   touch $CRTMP
-#  echo '2 2 * * * ~/setup/scripts/cron/backupSystem.sh > ~/cron.backupSystem.log 2>&1' >> $CRTMP
-  echo '3 3 3 * * ~/setup/scripts/cron/renewSSLCerts.sh > ~/cron.renewSSLCerts.log 2>&1' >> $CRTMP
-#  echo '4 4 * * 6 ~/setup/scripts/cron/updateSystem.sh > ~/cron.updateSystem.log 2>&1' >> $CRTMP
+#  echo '2 2 * * * ~/setup_aws/scripts/cron/backupSystem.sh > ~/cron.backupSystem.log 2>&1' >> $CRTMP
+  echo '3 3 3 * * ~/setup_aws/scripts/cron/renewSSLCerts.sh > ~/cron.renewSSLCerts.log 2>&1' >> $CRTMP
+#  echo '4 4 * * 6 ~/setup_aws/scripts/cron/updateSystem.sh > ~/cron.updateSystem.log 2>&1' >> $CRTMP
   C=`cat "$CRTMP"`
   rm $CRTMP
 
