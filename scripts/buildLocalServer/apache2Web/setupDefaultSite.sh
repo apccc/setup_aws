@@ -25,10 +25,10 @@ if [ ! -d "$D/htdocs" ];then
 fi
 
 echo " * Installing Web files to ${D}:"
-#~/setup/scripts/buildLocalServer/apache2Web/setupDefaultSite/installWebFiles.sh
+~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite/installWebFiles.sh
 
 echo " * Set up Database:"
-#~/setup/scripts/buildLocalServer/apache2Web/setupDefaultSite/setupDatabase.sh
+~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite/setupDatabase.sh
 
 
 #~/setup/scripts/buildLocalServer/apache2Web/setupSite.sh "${COMPANY_ADMIN_SUBDOMAIN}.${COMPANY_DOMAIN}"
