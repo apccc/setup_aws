@@ -23,15 +23,15 @@ fi
 if [[ `$MY "USE ${SYSTEM_DATABASE};SHOW TABLES LIKE 'users';" | tail -n +2 | wc -l` -lt 1 ]];then
   X="CREATE TABLE IF NOT EXISTS ${SYSTEM_DATABASE}.users ("
   X=$X'`id` bigint(10) NOT NULL,'
-  X=$X'`first_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`last_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`password` varbinary(512) NOT NULL,'
-  X=$X'`nonce` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`url` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`first_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`last_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`password` varbinary(512) NOT NULL DEFAULT "",'
+  X=$X'`nonce` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`url` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
   X=$X'`active` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT "F",'
   X=$X'`is_admin` enum("T","F") COLLATE utf8_unicode_ci NOT NULL DEFAULT "F",'
-  X=$X'`variables` TEXT NOT NULL,'
+  X=$X'`variables` TEXT NOT NULL DEFAULT "",'
   X=$X'`timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP'
   X=$X') ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;'
   $MY "$X"
