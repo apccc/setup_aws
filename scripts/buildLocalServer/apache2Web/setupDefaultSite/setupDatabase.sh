@@ -34,6 +34,7 @@ if [[ `$MY "USE ${SYSTEM_DATABASE};SHOW TABLES LIKE 'users';" | tail -n +2 | wc 
   X=$X'`variables` TEXT NOT NULL DEFAULT "",'
   X=$X'`timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP'
   X=$X') ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;'
+  echo "$X"
   $MY "$X"
 
   X="ALTER TABLE ${SYSTEM_DATABASE}.users ADD PRIMARY KEY (id), ADD UNIQUE KEY email (email);"
