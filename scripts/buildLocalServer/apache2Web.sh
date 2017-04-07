@@ -19,9 +19,14 @@ if [ -d /etc/apache2/sites-enabled ];then
   sudo rm /etc/apache2/sites-enabled/*
 fi
 
+echo " * Setting up Extra Setup Conf File"
 ~/setup_aws/scripts/buildLocalServer/apache2Web/setupExtrasetup.conf.sh
+
+echo " * Setting up The Default Site"
 ~/setup_aws/scripts/buildLocalServer/apache2Web/setupDefaultSite.sh
-#~/setup/scripts/buildLocalServer/apache2Web/setupServerSites.sh
+
+echo " * Setting up Any Additional Server Sites"
+~/setup_aws/scripts/buildLocalServer/apache2Web/setupServerSites.sh
 
 echo "* Enabling mod_ssl"
 sudo a2enmod ssl
