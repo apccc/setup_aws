@@ -28,7 +28,15 @@ else
 fi
 
 for INSTANCEID in `~/setup_aws/scripts/tools/getInstanceIdsWithName.sh "$SERVERNAME"`;do
+  if [ -z "$INSTANCEID" ];then
+    continue
+  fi
   echo "INSTANCEID: $INSTANCEID"
+  INSTANCEURL=`setup_aws/scripts/tools/getInstanceURLFromId.sh "$INSTANCEID"`
+  if [ -z "$INSTANCEURL" ];then
+    continue
+  fi
+  echo "INSTANCEURL: $INSTANCEURL"
 #~/setup_aws/scripts/tools/expect/performRemoteTask.exp\
   # "$SERVERUSER" "$SERVERURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log"
 done
