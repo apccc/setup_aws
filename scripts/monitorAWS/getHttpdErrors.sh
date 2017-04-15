@@ -31,13 +31,12 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getInstanceIdsWithName.sh "$SERVERN
   if [ -z "$INSTANCEID" ];then
     continue
   fi
-  echo "INSTANCEID: $INSTANCEID"
   INSTANCEURL=`~/setup_aws/scripts/tools/getInstanceURLFromId.sh "$INSTANCEID"`
   if [ -z "$INSTANCEURL" ];then
     continue
   fi
-  echo "INSTANCEURL: $INSTANCEURL"
+#  echo "INSTANCEURL: $INSTANCEURL"
   ~/setup_aws/scripts/tools/expect/performRemoteTask.exp\
-   "$SERVERUSER" "$INSTANCEURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log" | grep '[:error] [pid '
+   "$SERVERUSER" "$INSTANCEURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log" | grep '\[:error\] \[pid '
 done
 exit 0
