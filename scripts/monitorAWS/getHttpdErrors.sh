@@ -32,7 +32,7 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getInstanceIdsWithName.sh "$SERVERN
     continue
   fi
   echo "INSTANCEID: $INSTANCEID"
-  INSTANCEURL=`setup_aws/scripts/tools/getInstanceURLFromId.sh "$INSTANCEID"`
+  INSTANCEURL=`~/setup_aws/scripts/tools/getInstanceURLFromId.sh "$INSTANCEID"`
   if [ -z "$INSTANCEURL" ];then
     continue
   fi
