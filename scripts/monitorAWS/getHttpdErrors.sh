@@ -38,6 +38,6 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getInstanceIdsWithName.sh "$SERVERN
   fi
   echo "INSTANCEURL: $INSTANCEURL"
   ~/setup_aws/scripts/tools/expect/performRemoteTask.exp\
-   "$SERVERUSER" "$INSTANCEURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log"
+   "$SERVERUSER" "$INSTANCEURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log" | grep '[:error] [pid '
 done
 exit 0
