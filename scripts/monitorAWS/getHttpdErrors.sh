@@ -28,5 +28,6 @@ else
 fi
 
 
-
+#~/setup_aws/scripts/tools/expect/performRemoteTask.exp\
+# "$SERVERUSER" "$SERVERURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log"
 exit 0
