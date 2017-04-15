@@ -37,7 +37,7 @@ for INSTANCEID in `~/setup_aws/scripts/tools/getInstanceIdsWithName.sh "$SERVERN
     continue
   fi
   echo "INSTANCEURL: $INSTANCEURL"
-#~/setup_aws/scripts/tools/expect/performRemoteTask.exp\
-  # "$SERVERUSER" "$SERVERURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log"
+  ~/setup_aws/scripts/tools/expect/performRemoteTask.exp\
+   "$SERVERUSER" "$INSTANCEURL" "$KEYFILE" "tail -n $LINES /var/log/httpd/error_log"
 done
 exit 0
