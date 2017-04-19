@@ -30,7 +30,7 @@ if(!empty($section))
 if(empty($section)||empty($page))
 {
 	$sectionIdentifier='404';
-	$pageIdentifier='php_404';
+	$pageIdentifier='404';
 	$section=$database_mysqli_local->mysqlidb->getRow($SITE_DATABASE,'site_sections',array(
 		'active'=>'T',
 		'identifier'=>$sectionIdentifier
@@ -54,14 +54,14 @@ if(empty($section)||empty($page))
 }
 
 //output the page
-require_once dirname(__FILE__).'/class/zInterface/interfaces/1.php';
+require_once __DIR__.'/class/zInterface/interfaces/1.php';
 zInterface::setPageCSSIds(explode(',',$section['css_ids']));
 zInterface::setPageJSIds(explode(',',$section['js_ids']));
 zInterface::setPageTitle($page['title']);
 zInterface::setPageDescription($page['description']);
 zInterface::setPageKeywords($page['keywords']);
 zInterface::addMidContent(
-	substr_compare($page['identifier'],'php_',0,4)===0?eval($page['code']):$page['code']
+	$page['code_type']=='PHP'?eval($page['code']):$page['code']
 );
 echo zInterface::getPage();
 ?>

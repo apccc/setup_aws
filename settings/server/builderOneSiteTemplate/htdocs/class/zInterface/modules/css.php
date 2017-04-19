@@ -19,13 +19,13 @@ class setup_system_css
 		if(!strlen($idsString)) return false;
 
 		global $database_mysqli_local;
-		global $SYSTEM_DATABASE;
+		global $SITE_DATABASE;
 		global $SITE_CONTROL_DOMAIN;
 		global $SITE_PROTOCOL;
 
 		$sql=""
 			."SELECT `lastUpdated` "
-			."FROM `".$SYSTEM_DATABASE."`.`css` "
+			."FROM `".$SITE_DATABASE."`.`css` "
 			."WHERE `id`IN(".$database_mysqli_local->mysqlidb->real_escape_string($idsString).") "
 			."ORDER BY `lastUpdated` DESC "
 			."LIMIT 1"

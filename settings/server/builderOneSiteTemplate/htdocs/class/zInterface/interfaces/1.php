@@ -20,49 +20,20 @@ class zInterface extends zInterfaceCore
 	*/
 	protected static function getHeader()
 	{
-		global $SITE_PROTOCOL;
-		global $SITE_CONTROL_DOMAIN;
-		global $COMPANY_NAME;
-		global $SYSTEM_DATABASE;
+		global $SITE_DATABASE;
 		global $database_mysqli_local;
-		$user=loginModel::getLoggedInUser();
-		$site=$database_mysqli_local->mysqlidb->getRow($SYSTEM_DATABASE,'sites',array(
-			'subdomain'=>$SITE_CONTROL_DOMAIN
-		));
-		if(isset($site['logo'])&&strlen($site['logo']))
-		{
-			$fileData=base64_decode($site['logo']);
-			$fo=finfo_open();
-			$mime_type=finfo_buffer($fo,$fileData,FILEINFO_MIME_TYPE);
-			$siteLogoCode="data:".$mime_type.";base64,".$site['logo'];
-			if($mime_type=='image/png')
-				$logoExt='png';
-			else
-				$logoExt='png';
-
-			$siteLogoURL=$SITE_PROTOCOL."://".$SITE_CONTROL_DOMAIN."/afile/sites/".$site['id'].".logo.".$logoExt;
-		}
+		$section=$database_mysqli_local->mysqlidb->getRow($SITE_DATABASE,'site_sections',array('identifier'=>'head','active'=>'T'));
+		if(empty($section)) return "";
+		$page=$database_mysqli_local->mysqlidb->getRow($SITE_DATABASE,'site_pages',array('site_section_id'=>$section['id'],'identifier'=>'head','active'=>'T'));
+		if(empty($page)) return "";
+		if(!empty($section['css_ids']))
+			foreach(explode(',',$section['css_ids']) as $id)
+				self::addPageCSSId(trim($id));
+		if(!empty($section['js_ids']))
+			foreach(explode(',',$section['js_ids']) as $id)
+				self::addPageJSId(trim($id));
 		return ""
-			."<div id='upperHead'>"
-				."<div>"
-					."<div style='float:right'>"
-						.(!empty($user)
-							?$user['first_name']." ".$user['last_name']." &nbsp; &nbsp; <a href='".$SITE_PROTOCOL."://".$SITE_CONTROL_DOMAIN."/log?logout'>sign out</a>"
-							:"<a href='".$SITE_PROTOCOL."://".$SITE_CONTROL_DOMAIN."/log?url=".urlencode($SITE_PROTOCOL."://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'])."'>sign in</a>"
-						)
-					."</div>"
-					."<a href='/'>"
-						.(isset($siteLogoURL)&&$siteLogoURL?""
-							."<img alt=\"".$COMPANY_NAME."\" src='".$siteLogoURL."' />"
-							:$COMPANY_NAME
-						)
-					."</a>"
-				."</div>"
-			."</div>"
-			."<div id='lowerHead'>"
-				."<div>"
-				."</div>"
-			."</div>"
+			.($page['code_type']=='PHP'?eval($page['code']):$page['code'])
 		;
 	}
 
@@ -72,18 +43,23 @@ class zInterface extends zInterfaceCore
 	*/
 	protected static function getFooter()
 	{
-		global $COMPANY_NAME;
-
 		$out="";
+		global $SITE_DATABASE;
+		global $database_mysqli_local;
+		$section=$database_mysqli_local->mysqlidb->getRow($SITE_DATABASE,'site_sections',array('identifier'=>'foot','active'=>'T'));
+		if(empty($section)) return "";
+		$page=$database_mysqli_local->mysqlidb->getRow($SITE_DATABASE,'site_pages',array('site_section_id'=>$section['id'],'identifier'=>'foot','active'=>'T'));
+		if(empty($page)) return "";
+		if(!empty($section['css_ids']))
+			foreach(explode(',',$section['css_ids']) as $id)
+				self::addPageCSSId(trim($id));
+		if(!empty($section['js_ids']))
+			foreach(explode(',',$section['js_ids']) as $id)
+				self::addPageJSId(trim($id));
 
-		//GET THE USER INFO
-		$user=loginModel::getLoggedInUser();
-
-		//PUT IN THE COPYRIGHT INFO
+		//PUT IN THE BOTTOM
 		$out.=""
-			."<div>"
-			."&copy; ".date('Y')." ".$COMPANY_NAME
-			."</div>"
+			.($page['code_type']=='PHP'?eval($page['code']):$page['code'])
 		;
 
 		return $out;

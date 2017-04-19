@@ -11,7 +11,7 @@ foreach($ids as $key=>$id) if(!$id||!is_numeric($id)||substr($id,0,1)=='0') unse
 if(!count($ids)) exit;
 
 require_once dirname(__FILE__).'/class/objs/database_mysqli/local/local.php';
-$sql="SELECT `whitelisted_ips`,`sheet` FROM `".$SYSTEM_DATABASE."`.`css` WHERE `id`IN(".$database_mysqli_local->mysqlidb->real_escape_string(implode(',',$ids)).") ORDER BY `ord` ASC";
+$sql="SELECT `whitelisted_ips`,`sheet` FROM `".$SITE_DATABASE."`.`css` WHERE `id`IN(".$database_mysqli_local->mysqlidb->real_escape_string(implode(',',$ids)).") ORDER BY `ord` ASC";
 foreach($database_mysqli_local->mysqlidb->getRowsFromQuery($sql) as $r)
 {
 	if(isset($r['whitelisted_ips'])&&strlen($r['whitelisted_ips'])&&!strstr($r['whitelisted_ips'],$_SERVER['REMOTE_ADDR'])) continue;//bypass ips not whitelisted, when using this feature

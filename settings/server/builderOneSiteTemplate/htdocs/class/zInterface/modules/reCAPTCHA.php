@@ -30,11 +30,12 @@ class reCAPTCHA
 	* @param string $siteKey
 	* @returns string - the HTML
 	**/
-	public static function getChallengeHTML($siteKey)
+	public static function getChallengeHTML()
 	{
+		global $RECAPTCHA_SITE_KEY;
 		return ""
 			."<script src='https://www.google.com/recaptcha/api.js'></script>"
-			."<div class='g-recaptcha' data-sitekey='".$siteKey."'></div>"
+			."<div class='g-recaptcha' data-sitekey='".$RECAPTCHA_SITE_KEY."'></div>"
 		;
 	}
 

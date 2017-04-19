@@ -15,17 +15,21 @@ class setup_system_js
 	{
 		if(!(isset($ids)&&is_array($ids)&&!empty($ids))) return false;
 
+		foreach($ids as $k=>$v)
+			if(!$v)
+				unset($ids[$k]);
+
 		$idsString=implode(',',$ids);
 		if(!strlen($idsString)) return false;
 
 		global $database_mysqli_local;
-		global $SYSTEM_DATABASE;
+		global $SITE_DATABASE;
 		global $SITE_CONTROL_DOMAIN;
 		global $SITE_PROTOCOL;
 
 		$sql=""
 			."SELECT `lastUpdated` "
-			."FROM `".$SYSTEM_DATABASE."`.`js` "
+			."FROM `".$SITE_DATABASE."`.`js` "
 			."WHERE `id`IN(".$database_mysqli_local->mysqlidb->real_escape_string($idsString).") "
 			."ORDER BY `lastUpdated` DESC "
 			."LIMIT 1"

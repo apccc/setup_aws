@@ -7,7 +7,7 @@ $table="navigation";
 $single_name="Navigation Control";
 $multiple_name=$single_name."s";
 $list_fields=array(
-	'site_id','name','identifier'
+	'name','identifier','ord'
 );
 $search_fields=array(
 	'name','identifier','href','content'
@@ -15,7 +15,7 @@ $search_fields=array(
 $edit_fields=array(
 	'parent'=>array(
 		'field_name'=>'parent',
-		'blank_top_select'=>false,
+		'blank_top_select'=>true,
 		'input_value'=>'id',
 		'input_visible'=>'name',
 		'select_db'=>$database,
@@ -35,6 +35,12 @@ $edit_fields=array(
 	'href'=>array(),
 	'content'=>array(
 		'edit_field_type'=>'textarea'
+	),
+	'ord'=>array(
+		'default'=>'1',
+		'attr.pattern'=>"^[0-9]+$",
+		'attr.class'=>"validate",
+		'attr.required'=>"required"
 	),
 	'active'=>array(
 		'edit_field_type'=>'t_or_f'

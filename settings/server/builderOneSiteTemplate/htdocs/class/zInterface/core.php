@@ -35,6 +35,10 @@ class zInterfaceCore
 	* string - The JS Ids
 	*/
 	private static $JSIds=array();
+	/**
+	* string - The footer code
+	**/
+	public static $footer="";
 
 	/**
 	* Get the Page HTML
@@ -42,6 +46,7 @@ class zInterfaceCore
 	*/
 	public static function getPage()
 	{
+		static::$footer=static::getFooter();//build the footer early to pull out the necessary CSS information
 		return ""
 			.self::getTop()
 			.self::getMid()
@@ -102,7 +107,7 @@ class zInterfaceCore
 		return ""
 				."<div id='foot'>"
 					."<div>"
-						.static::getFooter()
+						.static::$footer
 					."</div>"
 				."</div>"
 			."</div>"
