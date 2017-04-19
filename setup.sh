@@ -20,5 +20,7 @@ fi
 #install some packages
 echo " * Updating apt-get"
 sudo apt-get -qq update
+echo " * Installing basic utilities."
 sudo apt-get -qq install -y expect ntp pcregrep
+echo " * Finished running setup."
 exit 0
