@@ -5,7 +5,7 @@ COMPANY_NAME='Example Company'
 COMPANY_DOMAIN='example.com'
 COMPANY_ADMIN_SUBDOMAIN='subdomainexample'
 COMPANY_SYSADMIN_EMAIL='me@example.com'
-SYSADMIN_INIT_PASS='putYourPasswordHere'
+SYSADMIN_INIT_PASS=''
 
 #mid level vars
 MYSQL_ROOT_PW=''
