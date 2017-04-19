@@ -100,13 +100,14 @@ fi
 if [[ `$MY "USE ${SITE_DATABASENAME};SHOW TABLES LIKE 'site_pages';" | tail -n +2 | wc -l` -lt 1 ]];then
   X='CREATE TABLE IF NOT EXISTS `'"${SITE_DATABASENAME}"'`.`site_pages` ('
   X=$X'`id` int(10) unsigned NOT NULL,'
-  X=$X'`site_section_id` int(10) unsigned NOT NULL,'
-  X=$X'`name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`identifier` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`title` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`description` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,'
-  X=$X'`keywords` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`site_section_id` int(10) unsigned NOT NULL DEFAULT "0",'
+  X=$X'`name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`identifier` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`title` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`description` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
+  X=$X'`keywords` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "",'
   X=$X'`code` longtext COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`code_type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "HTML",'
   X=$X'`active` enum("T","F") COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "T"'
   X=$X') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;'
   $MY "$X"
@@ -128,11 +129,12 @@ if [[ `$MY "USE ${SITE_DATABASENAME};SHOW TABLES LIKE 'navigation';" | tail -n +
   X=$X'`description` text COLLATE utf8mb4_unicode_ci NOT NULL,'
   X=$X'`href` text COLLATE utf8mb4_unicode_ci NOT NULL,'
   X=$X'`content` text COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`ord` int(10) unsigned NOT NULL DEFAULT "0",'
   X=$X'`active` enum("T","F") COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT "T"'
   X=$X') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;'
   $MY "$X"
 
-  X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`navigation` ADD PRIMARY KEY (`id`), ADD KEY `parent` (`parent`), ADD KEY `identifier` (`identifier`), ADD KEY `active` (`active`);'
+  X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`navigation` ADD PRIMARY KEY (`id`), ADD KEY `parent` (`parent`), ADD KEY `identifier` (`identifier`), ADD KEY `ord` (`ord`), ADD KEY `active` (`active`);'
   $MY "$X"
 
   X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`navigation` MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;'
@@ -157,6 +159,48 @@ if [[ `$MY "USE ${SITE_DATABASENAME};SHOW TABLES LIKE 'images';" | tail -n +2 | 
   X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`images` MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;'
   $MY "$X"
 fi
+
+
+#create the contact form
+if [[ `$MY "USE ${SITE_DATABASENAME};SHOW TABLES LIKE 'contacts';" | tail -n +2 | wc -l` -lt 1 ]];then
+  X='CREATE TABLE IF NOT EXISTS `'"${SITE_DATABASENAME}"'`.`contacts` ('
+  X=$X'`id` int(10) unsigned NOT NULL,'
+  X=$X'`first_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`last_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`phone` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`message` text COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP'
+  X=$X') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;'
+  $MY "$X"
+
+  X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`contacts` ADD PRIMARY KEY (`id`), ADD KEY `timestamp` (`timestamp`);'
+  $MY "$X"
+
+  X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`contacts` MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;'
+  $MY "$X"
+fi
+
+
+#setup the emails to notify table
+if [[ `$MY "USE ${SITE_DATABASENAME};SHOW TABLES LIKE 'emails_to_notify';" | tail -n +2 | wc -l` -lt 1 ]];then
+  X='CREATE TABLE IF NOT EXISTS `'"${SITE_DATABASENAME}"'`.`contacts` ('
+  X=$X'`id` int(10) unsigned NOT NULL,'
+  X=$X'`identifier` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X'`email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,'
+  X=$X') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;'
+  $MY "$X"
+
+  X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`emails_to_notify` ADD PRIMARY KEY (`id`);'
+  $MY "$X"
+
+  X='ALTER TABLE `'"${SITE_DATABASENAME}"'`.`emails_to_notify` MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;'
+  $MY "$X"
+
+  X='INSERT INTO `'"${SITE_DATABASENAME}"'`.`emails_to_notify` (`identifier`,`email`) VALUES ("contact","'"$COMPANY_SYSADMIN_EMAIL"'")';
+  $MY "$X"
+fi
+
 
 echo " * Done setting up the database ${SITE_DATABASENAME}"
 
