@@ -6,6 +6,7 @@ if [ ! -f $F ];then
   echo " * Copying the template settings file to $F"
   echo " * Configure this file to your liking!"
   cp ~/setup_aws/settings/template.sh $F
+  chmod 600 $F
   X=`tr -cd [:alnum:] < /dev/urandom | head -c 50`
   sed -i "s|MYSQL_ROOT_PW=''|MYSQL_ROOT_PW='$X'|"  $F > /dev/null
   X=`tr -cd [:alnum:] < /dev/urandom | head -c 50`
