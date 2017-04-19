@@ -8,10 +8,10 @@ echo "* Updating apt-get:"
 sudo apt-get update
 
 echo "* Installing apache2:"
-sudo apt-get install -y apache2
+sudo apt-get -qq install -y apache2
 
-echo "* Installing libapache2-mod-php5:"
-sudo apt-get install -y libapache2-mod-php5
+echo "* Installing PHP with MySQL Support:"
+sudo apt-get -qq install -y libapache2-mod-php5 php5-mysql php5-mysqlnd
 
 #clear out existing sites-enabled files
 if [ -d /etc/apache2/sites-enabled ];then
