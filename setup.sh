@@ -1,10 +1,19 @@
 #!/bin/bash
 
 #setup the configuration file
-if [ ! -f ~/setup_aws.conf.sh ];then
-  echo " * Copying the template settings file to ~/setup_aws.conf.sh"
+F=~/setup_aws.conf.sh
+if [ ! -f $F ];then
+  echo " * Copying the template settings file to $F"
   echo " * Configure this file to your liking!"
-  cp ~/setup_aws/settings/template.sh ~/setup_aws.conf.sh
+  cp ~/setup_aws/settings/template.sh $F
+  X=`tr -cd [:alnum:] < /dev/urandom | head -c 50`
+  sed -i "s|MYSQL_ROOT_PW=''|MYSQL_ROOT_PW=='$X'|"  $F > /dev/null
+  X=`tr -cd [:alnum:] < /dev/urandom | head -c 50`
+  sed -i "s|MYSQL_WEB_USER_PASS=''|MYSQL_WEB_USER_PASS=='$X'|"  $F > /dev/null
+  X=`tr -cd [:alnum:] < /dev/urandom | head -c 20`
+  sed -i "s|SYSADMIN_INIT_PASS=''|SYSADMIN_INIT_PASS=='$X'|"  $F > /dev/null
+  X=`tr -cd [:alnum:] < /dev/urandom | head -c 20`
+  sed -i "s|PHPMYADMIN_FOLDER=''|PHPMYADMIN_FOLDER=='$X'|"  $F > /dev/null
 else
   echo " * Configuration file is already in place ~/setup_aws.conf.sh"
 fi
