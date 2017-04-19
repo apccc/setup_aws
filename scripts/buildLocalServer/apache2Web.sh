@@ -5,7 +5,7 @@ source ~/setup_aws.conf.sh
 echo "* Building Apache 2 Web Server for $COMPANY_NAME on $HOSTNAME"
 echo "**********************************************"
 echo "* Updating apt-get:"
-sudo apt-get update
+sudo apt-get -qq update
 
 echo "* Installing apache2:"
 sudo apt-get -qq install -y apache2
