@@ -7,9 +7,17 @@ if [[ `which aws | wc -l` -gt 0 ]];then
 fi
 
 #update apt
-sudo apt-get update
+if [ `whoami`=='root' ];then
+  apt-get update
+else
+  sudo apt-get update
+fi
 #install Python and pip
-sudo apt-get install -y python python-pip
+if [ `whoami`=='root' ];then
+  apt-get install -y python python-pip
+else
+  sudo apt-get install -y python python-pip
+fi
 #upgrade pip
 pip install --upgrade pip
 
