@@ -5,6 +5,11 @@ if [ -z "$1" ];then
   exit 1
 fi
 INSTANCEID="$1"
+if [ -z "$2" ];then
+ ZUSER="admin"
+else
+ ZUSER="$2"
+fi
 
 INSTANCEURL=`~/setup_aws/scripts/tools/getInstanceURLFromId.sh "$INSTANCEID"`
 
