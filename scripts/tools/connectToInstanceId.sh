@@ -30,7 +30,7 @@ if [ -z "$KEYF" ];then
 fi
 
 echo "Connecting to $INSTANCEURL as $ZUSER"
-ssh -i "$KEYF" ${ZUSER}@${INSTANCEURL}
+ssh -i $KEYF ${ZUSER}@${INSTANCEURL}
 echo "Disconnected from $INSTANCEURL"
 
 exit 0
