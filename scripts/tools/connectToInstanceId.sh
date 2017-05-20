@@ -23,8 +23,8 @@ if [ -z "$VPC" ];then
   exit 1
 fi
 
-KEYF="~/setup_aws_keystore/${VPC}.pem"
-if [ -z "$KEYF" ];then
+KEYF=~/setup_aws_keystore/${VPC}.pem
+if [ ! -f "$KEYF" ];then
   echo "Key File Could Not Be Found!"
   exit 1
 fi
