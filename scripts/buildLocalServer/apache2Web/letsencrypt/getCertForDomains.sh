@@ -42,7 +42,7 @@ fi
 sudo /etc/init.d/apache2 stop
 
 #get the cert
-sudo /root/letsencrypt/letsencrypt-auto certonly --agree-tos --standalone --renew-by-default --text -vvvvvv --email "$ZADMINEMAIL" -d "$ZDOMAINS" 2>&1 | sudo tee -a "${LOGDIRECTORY}/getcert.${ZDOMAIN}.log" > /dev/null
+sudo -H /root/letsencrypt/letsencrypt-auto certonly --agree-tos --standalone --renew-by-default --text -vvvvvv --email "$ZADMINEMAIL" -d "$ZDOMAINS" 2>&1 | sudo tee -a "${LOGDIRECTORY}/getcert.${ZDOMAIN}.log" > /dev/null
 echo " * Check log for more details ${LOGDIRECTORY}/getcert.${ZDOMAIN}.log"
 
 #put the cert in place
